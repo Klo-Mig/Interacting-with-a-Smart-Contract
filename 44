@@ -1,0 +1,15 @@
+import { ethers } from "ethers";
+
+const provider = new ethers.JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
+const wallet = new ethers.Wallet("YOUR_PRIVATE_KEY", provider);
+const contractAddress = "0xYourTokenContractHere";
+const contractAbi = ["function balanceOf(address) view returns (uint256)"];
+
+const contract = new ethers.Contract(contractAddress, contractAbi, wallet);
+
+async function getBalance() {
+    const balance = await contract.balanceOf(wallet.address);
+    console.log(`Token Balance: ${ethers.formatUnits(balance, 18)}`);
+}
+
+getBalance();
